@@ -10,12 +10,10 @@
     "name": "Sebstian Döll",
     "email": "sebastian@katallaxie.me"
   },
-  "contributors": [
-    {
-      "name": "Sebastian Döll",
-      "email": "sebastian@katallaxie.me"
-    }
-  ],
+  "contributors": [{
+    "name": "Sebastian Döll",
+    "email": "sebastian@katallaxie.me"
+  }],
   "files": [
     "generators",
     "templates"
@@ -69,6 +67,7 @@
     "update": "git pull --recurse-submodules"
   },
   "jest": {
+    "testEnvironment": "node",
     "verbose": true
   },
   "engines": {
