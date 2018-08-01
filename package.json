@@ -18,6 +18,7 @@
     "email": "sebastian@katallaxie.me"
   }],
   "files": [
+    "bin",
     "generators",
     "templates"
   ],
