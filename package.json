@@ -1,6 +1,6 @@
 {
   "name": "generator-create-go",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A generator to create your next Go project.",
   "homepage": "https://github.com/andersnormal/generator-create-go",
   "bugs": {
@@ -10,10 +10,12 @@
     "name": "Sebstian Döll",
     "email": "sebastian@katallaxie.me"
   },
-  "contributors": [{
-    "name": "Sebastian Döll",
-    "email": "sebastian@katallaxie.me"
-  }],
+  "contributors": [
+    {
+      "name": "Sebastian Döll",
+      "email": "sebastian@katallaxie.me"
+    }
+  ],
   "files": [
     "generators",
     "templates"
