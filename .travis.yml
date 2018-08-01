@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+- '6'
+- '7'
+- '8'
+- node
+script:
+- npm run build
+- npm run ci
+sudo: required
+notifications:
+  slack:
+    secure: fjEauuiehlWN9yhbBq7+espZp54J4kCR7Bz46NSdnpmJx5VTX0Mc3JM9g5z5atOl0iiws46OPWTj/25JQrL3iox7/NFJZgu/dhTWsICFajI4VM49fKJf3h7wvKZmRgfk6mBsn7a9Hn1UGjzwXqrqFKsH9LLWwf6PHWalGVStLz5RuOyntjDD3SVCKNfea8Lrr//k+K5k+zDa19loYmVQQO1CDVRW62PmN2nkDcYqTQsv5ngC1XdkW7SgIJBgU6RZ+H7z+Qqt//6E2U4GAngPZpFTfZ7uARxqeINJhkGtE0D6KsmhdhqnADljZhdzzzvj1qyG5J4TCLy7Vate6csJ+sealatz5ezBx4GhXu4DuW7QlFPkw/aXxtubs4OmichuimSgbjlFZIA+wWLhFB64OaKJCYSunMpYHpdLXLyhTkWSLuJ45kGMOb7scyBpinX4iMkOWxE4eTCDr5BNLd2vFuYMN6LWnNClqVsHdUcPwaOhGSnzrWmy0HUC5fHRW/7m80zEuTqGg9xJh/NJ3SgOBWUKKe74CNCETF3oVIwx9fAI7hpG4nzXDTHjuaBwO1Ld045K9whoyOojj+7a3Jogse+WYbeuT0+bFEXtLLDH6uMCjMqrHSE2cFTsC2bBs2MAZqFAyoYDoxCOO/j0Ct5G/0lwYIK8gOG4m7W56azei+A=

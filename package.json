@@ -1,0 +1,81 @@
+{
+  "name": "generator-go-create",
+  "version": "1.0.0",
+  "description": "A generator to create your next Go project.",
+  "homepage": "https://github.com/katallaxie/generator-go-create",
+  "bugs": {
+    "url": "https://github.com/katallaxie/generator-go-create/issues"
+  },
+  "bin": {
+    "gocreate": "./bin/go-create"
+  },
+  "author": {
+    "name": "Sebstian Döll"
+  },
+  "contributors": [
+    {
+      "name": "Sebastian Döll",
+      "email": "sebastian@katallaxie.me"
+    }
+  ],
+  "files": [
+    "generators",
+    "templates"
+  ],
+  "keywords": [
+    "yeoman-generator",
+    "generator",
+    "golang",
+    "go"
+  ],
+  "dependencies": {
+    "@expo/spawn-async": "^1.3.0",
+    "chalk": "^2.2.0",
+    "colors": "^1.1.2",
+    "ora": "^1.3.0",
+    "yeoman-environment": "^2.0.5",
+    "yeoman-generator": "^2.0.0",
+    "yosay": "^2.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^8.0.0",
+    "babel-jest": "^21.0.2",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-preset-env": "^1.1.4",
+    "babel-preset-node": "^5.1.1",
+    "del": "^3.0.0",
+    "eslint": "^4.6.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.4.0",
+    "jest": "^21.0.2",
+    "jest-cli": "^21.0.2",
+    "prettier": "^1.9.2",
+    "rimraf": "^2.6.2",
+    "yeoman-test": "^1.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/katallaxie/generator-go-create.git"
+  },
+  "scripts": {
+    "babel": "babel",
+    "build": "babel src -d generators",
+    "prebuild": "npm run clean:gen",
+    "clean:gen": "rimraf -- generators",
+    "ci": "npm run lint && npm run test",
+    "lint": "eslint --fix src/**/*.js",
+    "watch": "babel --watch src -d generators",
+    "prepublish": "npm run build",
+    "test": "jest",
+    "update": "git pull --recurse-submodules"
+  },
+  "jest": {
+    "verbose": true
+  },
+  "engines": {
+    "node": ">=6.9.1",
+    "npm": ">=3"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,9 @@
+# dist
+bin
+pkg
+
+# tools
+<% if (vendor === false) { %>
+vendor
+<% } %>
+debug
