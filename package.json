@@ -1,6 +1,6 @@
 {
   "name": "generator-create-go",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A generator to create your next Go project.",
   "homepage": "https://github.com/andersnormal/generator-create-go",
   "bugs": {
