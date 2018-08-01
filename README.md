@@ -16,7 +16,7 @@
 First, you have to install `yo`, as to use any [Yeoman](http://yeoman.io/) Generator. 
 
 ```
-npm i -g generator-go-lang
+npm i -g generator-create-go
 ```
 
 Create your project in the `$GOPATH`.
@@ -26,12 +26,10 @@ mkdir $GOPATH/src/<username>/your-new_app && cd $_
 ```
 
 ```
-gocreate
+yo create-go
 ```
 
 Have fun!
-
-> You could also `npm i -g yo` and use `yo go-lang`
 
 ## Development
 
