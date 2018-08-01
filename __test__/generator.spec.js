@@ -15,6 +15,8 @@ describe('run generator', () => {
         .withPrompts({
           appName: 'test',
           name: 'John Doe',
+          dep: false,
+          task: false,
           yarn: false
         })
     } catch (err) {
