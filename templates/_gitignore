@@ -7,3 +7,7 @@ pkg
 vendor
 <% } %>
 debug
+
+# test
+*.out
+coverage.html

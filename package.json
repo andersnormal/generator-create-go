@@ -1,23 +1,22 @@
 {
-  "name": "generator-go-create",
+  "name": "generator-create-go",
   "version": "1.0.0",
   "description": "A generator to create your next Go project.",
-  "homepage": "https://github.com/katallaxie/generator-go-create",
+  "homepage": "https://github.com/andersnormal/generator-create-go",
   "bugs": {
-    "url": "https://github.com/katallaxie/generator-go-create/issues"
+    "url": "https://github.com/andersnormal/generator-create-go/issues"
   },
   "bin": {
-    "gocreate": "./bin/go-create"
+    "create-go": "./bin/create-go"
   },
   "author": {
-    "name": "Sebstian Döll"
+    "name": "Sebstian Döll",
+    "email": "sebastian@katallaxie.me"
   },
-  "contributors": [
-    {
-      "name": "Sebastian Döll",
-      "email": "sebastian@katallaxie.me"
-    }
-  ],
+  "contributors": [{
+    "name": "Sebastian Döll",
+    "email": "sebastian@katallaxie.me"
+  }],
   "files": [
     "generators",
     "templates"
@@ -32,31 +31,31 @@
     "@expo/spawn-async": "^1.3.0",
     "chalk": "^2.2.0",
     "colors": "^1.1.2",
-    "ora": "^1.3.0",
+    "ora": "^3.0.0",
     "yeoman-environment": "^2.0.5",
-    "yeoman-generator": "^2.0.0",
+    "yeoman-generator": "^3.1.1",
     "yosay": "^2.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-eslint": "^8.0.0",
-    "babel-jest": "^21.0.2",
+    "babel-jest": "^23.4.2",
     "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-preset-env": "^1.1.4",
     "babel-preset-node": "^5.1.1",
     "del": "^3.0.0",
-    "eslint": "^4.6.1",
+    "eslint": "^5.2.0",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.4.0",
-    "jest": "^21.0.2",
-    "jest-cli": "^21.0.2",
+    "jest": "^23.4.2",
+    "jest-cli": "^23.4.2",
     "prettier": "^1.9.2",
     "rimraf": "^2.6.2",
     "yeoman-test": "^1.6.0"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/katallaxie/generator-go-create.git"
+    "url": "git://github.com/andersnormal/generator-create-go.git"
   },
   "scripts": {
     "babel": "babel",

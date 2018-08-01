@@ -1,10 +1,7 @@
 version: '2'
 
 vars:
-  VERSION:
-    sh: grep "const Version " version.go | sed -E 's/.*"(.+)"$$/\1/'
-
-  BIN:
+  Dir:
     sh: basename "$PWD"
 
 tasks:
@@ -16,7 +13,7 @@ tasks:
     desc: Run the glorious app.
     cmds:
       - task: build
-      - ./bin/{{.BIN}}{{exeExt}}
+      - ./bin/{{.Dir}}{{exeExt}}
 
   clean:
     desc: Cleanup the build artifacts.
@@ -31,7 +28,8 @@ tasks:
       - go get -u github.com/tcnksm/ghr
       - go get -u github.com/mitchellh/gox
       - go get -u github.com/golang/dep/cmd/dep
-      - go get -u gopkg.in/alecthomas/gometalinter.v2
+      - go get -u github.com/alecthomas/gometalinter
+      - go get -u github.com/kisielk/errcheck
 
   test:
     desc: Run all the go tests.
@@ -49,6 +47,17 @@ tasks:
     cmds:
       - go vet ./...
 
+  lint:
+    desc: Run all the linters.
+    cmds:
+      - gometalinter --disable-all --enable=errcheck --enable=vet --enable=vetshadow ./...
+
+  ci:
+    desc: Run it like Volkswagen.
+    cmds:
+      - task: test
+      - task: lint
+
   build:
     desc: Run all the go tests.
     sources:
@@ -56,22 +65,21 @@ tasks:
     generates:
       - bin/*.{{exeExt}}
     cmds:
-      - echo "Building ({{.BIN}}) ..."
-      - mkdir -p ./bin
-      - gox -output "bin/{{.BIN}}_{{.VERSION}}_{{{OS}}}}_{{{{ARCH}}}}" -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
-      - go build -i -o bin/{{.BIN}}
-    status:
-      - test -d bin
-    method: checksum
+      - echo "Building ({{.Dir}}) ..."
+      - mkdir -p bin
+      - gox -output {{printf "bin/{{.Dir}}_{{.OS}}_{{.Arch}}"}} -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
+      - go build -i -o bin/{{.Dir}}
 
   docker:
     desc: Build docker.
     deps: [release]
     cmds:
-      - docker build --build-arg BIN=bin/{{}} -t {{.BIN}}:latest .
+      - docker build --build-arg BIN={{.Dir}} -t {{.Dir}}:latest .
 
   release:
     desc: Release the glorious app.
-    deps: [clean, test, cov]
+    deps: [clean, test, lint, cov]
+    generates:
+      - bin/*.{{exeExt}}
     cmds:
       - task: build

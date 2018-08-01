@@ -3,14 +3,10 @@ import proc from 'process'
 import path from 'path'
 import chalk from 'chalk'
 import Generator from 'yeoman-generator'
-import ora from 'ora'
-import spawnAsync from '@expo/spawn-async'
+import { run } from './helpers'
 
 // load configs
 import { init, defaults } from './templates'
-
-// spinner
-const spinner = ora('Configuring (this may can take several minutes) ...')
 
 // generator
 class GolangGenerator extends Generator {
@@ -73,8 +69,28 @@ class GolangGenerator extends Generator {
       }
     ]
 
+    // if `task` is not available
+    if (
+      !this.spawnCommandSync('task', ['--help'], {
+        stdio: false
+      }).status
+    ) {
+      // test `dep` is installed
+      prompts.push({
+        type: 'confirm',
+        name: 'task',
+        message: `Install ${chalk.yellow(`task`)} command (required)?`,
+        default: true,
+        store: true
+      })
+    }
+
     // if `dep` is available
-    if (!!this.spawnCommandSync('dep', ['--help'], { stdio: false }).status) {
+    if (
+      !!this.spawnCommandSync('dep', ['--help'], {
+        stdio: false
+      }).status
+    ) {
       // test `dep` is installed
       prompts.push({
         type: 'confirm',
@@ -87,8 +103,9 @@ class GolangGenerator extends Generator {
 
     // if `cobra` is available
     if (
-      this.spawnCommandSync('cobra', ['--help'], { stdio: false }).output !==
-      null
+      this.spawnCommandSync('cobra', ['--help'], {
+        stdio: false
+      }).output !== null
     ) {
       // test `dep` is installed
       prompts.push({
@@ -100,9 +117,10 @@ class GolangGenerator extends Generator {
       })
     }
 
-    return this.prompt(prompts).then(({ app, dep, vendor, cobra }) => {
+    return this.prompt(prompts).then(({ app, dep, task, vendor, cobra }) => {
       this.appName = app
       this.dep = dep
+      this.task = task
       this.vendor = vendor
       this.cobra = cobra
       cb()
@@ -111,36 +129,37 @@ class GolangGenerator extends Generator {
 
   // just in case
   async configuring() {
-    // start spinner
-    spinner.start()
+    const cmd = run.bind(this)
+
+    // run `go get``
+    if (this.task) {
+      await cmd(
+        'go',
+        `Installing ${chalk.yellow('task')}`,
+        ['get', '-u', '-v', 'github.com/go-task/task/cmd/task'],
+        [`Could not install ${chalk.red('task')}`]
+      )
+    }
 
     // run `cobra init`
     if (this.cobra) {
-      // run cobra init
-      let result
-      try {
-        result = await spawnAsync('cobra', ['init', '-l', 'MIT'], {
-          stdio: false
-        })
-      } catch (e) {
-        spinner.fail([`Could not initialize ${chalk.red('cobra')}`])
-        this.env.error(e)
-      }
+      await cmd(
+        'cobra',
+        `Configuring ${chalk.yellow('cobra')}`,
+        ['init', '-l', 'MIT'],
+        [`Could not initialize ${chalk.red('cobra')}`]
+      )
     }
 
     // run `dep init`
     if (this.dep) {
-      // run dep init
-      let result
-      try {
-        result = await spawnAsync('dep', ['init'], { stdio: false })
-      } catch (e) {
-        spinner.fail([`Could not initialize ${chalk.red('dep')}`])
-        this.env.error(e)
-      }
+      await cmd(
+        'dep',
+        `Configuring ${chalk.yellow('dep')}`,
+        ['init'],
+        [`Could not initialize ${chalk.red('dep')}`]
+      )
     }
-
-    spinner.succeed('Configured')
   }
 
   // writing our files

@@ -4,20 +4,28 @@
 
 # <%= appName %>
 
-A golang app created with `yo go-lang`.
+A golang app created with `yo create-go`.
+
+> [task](https://github.com/go-task/task) is required to run all commands.
 
 ## Getting Started
 
-Install neat tools and dependencies.
+Install required tools and print `Howdy!`.
 
 ```
-make deps && make restore
+task install && task
 ```
 
 Build the app.
 
 ```
-make build
+task build
+```
+
+Release the app.
+
+```
+task release
 ```
 
 ## License

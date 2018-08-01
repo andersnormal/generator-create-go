@@ -1,4 +1,5 @@
-export const init = [{
+export const init = [
+  {
     from: '_gitignore',
     to: '.gitignore'
   },
@@ -19,10 +20,6 @@ export const init = [{
     to: 'Dockerfile'
   },
   {
-    from: '_version.go',
-    to: 'version.go'
-  },
-  {
     from: '_CONTRIBUTORS.md',
     to: 'CONTRIBUTORS.md'
   },
@@ -40,7 +37,8 @@ export const init = [{
   }
 ]
 
-export const defaults = [{
+export const defaults = [
+  {
     from: '_LICENSE',
     to: 'LICENSE'
   },
