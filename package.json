@@ -1,6 +1,6 @@
 {
   "name": "generator-go-create",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A generator to create your next Go project.",
   "homepage": "https://github.com/katallaxie/generator-go-create",
   "bugs": {
