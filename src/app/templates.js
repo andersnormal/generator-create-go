@@ -32,6 +32,10 @@ export const init = [
     to: '.vscode/settings.json'
   },
   {
+    from: '_vscode/_tasks.json',
+    to: '.vscode/tasks.json'
+  },
+  {
     from: '_vscode/_launch.json',
     to: '.vscode/launch.json'
   }
