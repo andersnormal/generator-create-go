@@ -1,4 +1,5 @@
-export const init = [{
+export const init = [
+  {
     from: '_gitignore',
     to: '.gitignore'
   },
@@ -35,12 +36,17 @@ export const init = [{
     to: '.vscode/settings.json'
   },
   {
+    from: '_vscode/_tasks.json',
+    to: '.vscode/tasks.json'
+  },
+  {
     from: '_vscode/_launch.json',
     to: '.vscode/launch.json'
   }
 ]
 
-export const defaults = [{
+export const defaults = [
+  {
     from: '_LICENSE',
     to: 'LICENSE'
   },
