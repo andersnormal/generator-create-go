@@ -5,5 +5,5 @@ import proc from 'process'
 const args = proc.argv.slice(2)
 
 const env = yeoman.createEnv(args)
-env.registerStub(require('./app'), 'go-create:app')
-env.run(`go-create:app ${args}`)
+env.registerStub(require('./app'), 'create-go:app')
+env.run(`create-go:app ${args}`)
