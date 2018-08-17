@@ -98,11 +98,14 @@ class GolangGenerator extends Generator {
       new SubGeneratorArgs(this)
     )
 
-    // vendor templates
+    // vscode templates
     this.composeWith(
       require.resolve('../vscode/index'),
       new SubGeneratorArgs(this)
     )
+
+    // ci templates
+    this.composeWith(require.resolve('../ci/index'), new SubGeneratorArgs(this))
 
     // library templates
     if (this.type === Library.value) {
