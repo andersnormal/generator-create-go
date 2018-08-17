@@ -13,7 +13,7 @@ export async function run(cmd, task, args = [], err = []) {
     result = await spawnAsync(cmd, args)
   } catch (e) {
     console.log(e, result)
-    spinner.fail(err)
+    s.fail(err)
     this.env.error(e)
   }
 

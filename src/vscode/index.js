@@ -1,9 +1,10 @@
+import path from 'path'
+import chalk from 'chalk'
 import Generator from 'yeoman-generator'
 import Templates from './templates'
-import path from 'path'
 
 // generator
-class CoreGenerator extends Generator {
+class GolangVSCodeGenerator extends Generator {
   constructor(args, options) {
     super(args, options)
   }
@@ -11,17 +12,21 @@ class CoreGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/core'))
+    this.sourceRoot(path.resolve(__filename, '../../../templates/vscode'))
   }
 
-  writing() {
+  // writing our files
+  async writing() {
+    // parse templates
     Templates.forEach(tpl => {
       this.fs.copyTpl(
         this.templatePath(tpl.from),
         this.destinationPath(tpl.to),
-        this
+        this.options
       )
     })
+
+    return
   }
 
   end() {
@@ -30,4 +35,4 @@ class CoreGenerator extends Generator {
 }
 
 // exporting generator as CommonJS module
-module.exports = CoreGenerator
+module.exports = GolangVSCodeGenerator

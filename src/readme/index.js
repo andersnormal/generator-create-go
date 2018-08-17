@@ -1,33 +1,27 @@
-import path from 'path'
 import Generator from 'yeoman-generator'
 import Templates from './templates'
+import path from 'path'
 
 // generator
-class GolangLibraryGenerator extends Generator {
+class CoreGenerator extends Generator {
   constructor(args, options) {
     super(args, options)
-
-    this.appName = this.options.appname
   }
 
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/library'))
+    this.sourceRoot(path.resolve(__filename, '../../../templates/readme'))
   }
 
-  // writing our files
-  async writing() {
-    // parse templates
+  writing() {
     Templates.forEach(tpl => {
       this.fs.copyTpl(
         this.templatePath(tpl.from),
         this.destinationPath(tpl.to),
-        this
+        this.options
       )
     })
-
-    return
   }
 
   end() {
@@ -36,4 +30,4 @@ class GolangLibraryGenerator extends Generator {
 }
 
 // exporting generator as CommonJS module
-module.exports = GolangLibraryGenerator
+module.exports = CoreGenerator

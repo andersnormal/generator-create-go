@@ -4,11 +4,11 @@ export default [
     to: 'CONTRIBUTORS.md'
   },
   {
-    from: '_editorconfig',
-    to: 'editorconfig'
+    from: '_CHANGELOG.md',
+    to: 'CHANGELOG.md'
   },
   {
-    from: '_gitignore',
-    to: '.gitignore'
+    from: '_editorconfig',
+    to: '.editorconfig'
   }
 ]

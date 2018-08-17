@@ -3,11 +3,9 @@ import proc from 'process'
 import path from 'path'
 import chalk from 'chalk'
 import Generator from 'yeoman-generator'
-// import { run } from '../helpers'
-import SubGenerator from '../sub'
-
-// load configs
-import { init, defaults } from './templates'
+import Choices, { App, Library } from '../sub'
+import SubGeneratorArgs from './args'
+import Templates from './templates'
 
 // generator
 class GolangGenerator extends Generator {
@@ -46,7 +44,7 @@ class GolangGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/'))
+    this.sourceRoot(path.resolve(__filename, '../../../templates/app'))
   }
 
   // prompting the user for inputs
@@ -55,16 +53,16 @@ class GolangGenerator extends Generator {
       {
         type: 'input',
         name: 'app',
-        message: `What is the name of the project?`,
+        message: `Project Name?`,
         default: this.appName,
         store: true
       },
       {
         type: 'list',
         name: 'type',
-        message: `What is the type of your project?`,
-        default: SubGenerator.App,
-        choices: [SubGenerator.App, SubGenerator.Library]
+        message: `Project Type`,
+        default: App.value,
+        choices: Choices
       }
     ])
 
@@ -76,12 +74,57 @@ class GolangGenerator extends Generator {
 
   // just in case
   async configuring() {
-    // core templates
-    this.composeWith(require.resolve('../core/index'))
+    // license
+    this.composeWith(require.resolve('../license/index'))
 
-    // if (this.type === Type.Library) {
-    //   this.composeWith(require.resolve('../library/index'))
-    // }
+    // basic templates
+    this.composeWith(require.resolve('../basic/index'))
+
+    // readme templates
+    this.composeWith(
+      require.resolve('../readme/index'),
+      new SubGeneratorArgs(this)
+    )
+
+    // task templates
+    this.composeWith(
+      require.resolve('../task/index'),
+      new SubGeneratorArgs(this)
+    )
+
+    // vendor templates
+    this.composeWith(
+      require.resolve('../vendor/index'),
+      new SubGeneratorArgs(this)
+    )
+
+    // vendor templates
+    this.composeWith(
+      require.resolve('../vscode/index'),
+      new SubGeneratorArgs(this)
+    )
+
+    // library templates
+    if (this.type === Library.value) {
+      this.composeWith(
+        require.resolve('../library/index'),
+        new SubGeneratorArgs(this)
+      )
+    }
+  }
+
+  // writing files
+  async writing() {
+    // library templates
+    if (this.type === App.value) {
+      Templates.forEach(tpl => {
+        this.fs.copyTpl(
+          this.templatePath(tpl.from),
+          this.destinationPath(tpl.to),
+          this.options
+        )
+      })
+    }
   }
 
   end() {
