@@ -19,7 +19,7 @@ class GolangCiGenerator extends Generator {
   async prompting() {
     const answers = await this.prompt([
       {
-        type: 'list',
+        type: 'checkbox',
         name: 'ci',
         message: `Project CI`,
         default: false,
@@ -27,19 +27,23 @@ class GolangCiGenerator extends Generator {
       }
     ])
 
+    // extract anwsers
     const { ci } = answers
 
+    // map
     this.ci = ci
   }
 
-  writing() {
-    Templates[this.ci].forEach(tpl => {
-      this.fs.copyTpl(
-        this.templatePath(tpl.from),
-        this.destinationPath(tpl.to),
-        this
-      )
-    })
+  async writing() {
+    console.log(ci)
+
+    // Templates[this.ci].forEach(tpl => {
+    //   this.fs.copyTpl(
+    //     this.templatePath(tpl.from),
+    //     this.destinationPath(tpl.to),
+    //     this
+    //   )
+    // })
   }
 
   end() {

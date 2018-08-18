@@ -12,37 +12,20 @@ class GolangGenerator extends Generator {
     super(args, options)
   }
 
+  // this is the first priority
+  get initializing() {
+    // if `task` is not available
+    const installTask = this.spawnCommandSync('task', ['--help'], {
+      stdio: false
+    }).status
+
+    this.installTask = !installTask
+  }
+
   // set necessary paths
   paths() {
     // set new source path
     this.sourceRoot(path.resolve(__filename, '../../../templates/task'))
-  }
-
-  // prompting the user for inputs
-  async prompting() {
-    const prompts = []
-
-    // if `task` is not available
-    const installTask = !this.spawnCommandSync('task', ['--help'], {
-      stdio: false
-    }).status
-
-    // install `task`
-    if (installTask) {
-      // test `dep` is installed
-      prompts.push({
-        type: 'confirm',
-        name: 'task',
-        message: `Install ${chalk.yellow(`task`)} (recommended)?`,
-        default: true,
-        store: true
-      })
-    }
-
-    const answers = await this.prompt(prompts)
-    const { task } = answers
-
-    this.task = task
   }
 
   // just in case
@@ -50,7 +33,7 @@ class GolangGenerator extends Generator {
     const cmd = run.bind(this)
 
     // run `go get``
-    if (this.task) {
+    if (this.installTask) {
       await cmd(
         'go',
         `Installing ${chalk.yellow('task')}`,

@@ -13,6 +13,22 @@ class GolangVendorGenerator extends Generator {
     this.appName = this.options.appname
   }
 
+  // first priority
+  get initializing() {
+    // if not `dep` is not available
+    const installDep = this.spawnCommandSync('dep', ['--help'], {
+      stdio: false
+    }).status
+
+    const installCobra =
+      !!this.spawnCommandSync('cobra', ['--help'], {
+        stdio: false
+      }).output !== null
+
+    this.installDep = !installDep
+    this.installCobra = installCobra
+  }
+
   // set necessary paths
   paths() {
     // set new source path
@@ -31,46 +47,9 @@ class GolangVendorGenerator extends Generator {
       }
     ]
 
-    // if not `dep` is not available
-    const installDep = !!this.spawnCommandSync('dep', ['--help'], {
-      stdio: false
-    }).status
-
-    // install `task`
-    if (installDep) {
-      // test `dep` is installed
-      prompts.push({
-        type: 'confirm',
-        name: 'dep',
-        message: `Install ${chalk.yellow(`task`)}?`,
-        default: true,
-        store: true
-      })
-    }
-
-    // if not `cobra` is not available
-    const installCobra =
-      this.spawnCommandSync('cobra', ['--help'], {
-        stdio: false
-      }).output !== null && this.options.type === App.value
-
-    // install `task`
-    if (installCobra) {
-      // test `dep` is installed
-      prompts.push({
-        type: 'confirm',
-        name: 'dep',
-        message: `Install ${chalk.yellow(`cobra`)}?`,
-        default: true,
-        store: true
-      })
-    }
-
     const answers = await this.prompt(prompts)
-    const { dep, vendor, cobra } = answers
+    const { vendor } = answers
 
-    this.dep = dep
-    this.cobra = cobra
     this.vendor = vendor
   }
 
@@ -78,25 +57,23 @@ class GolangVendorGenerator extends Generator {
   async configuring() {
     const cmd = run.bind(this)
 
-    // run `cobra init`
-    if (this.cobra) {
+    // run `go get``
+    if (this.installDep) {
       await cmd(
-        'cobra',
-        `Configuring ${chalk.yellow('cobra')}`,
-        ['init', '-l', 'MIT'],
-        [`Could not initialize ${chalk.red('cobra')}`]
+        'go',
+        `Installing ${chalk.yellow('dep')}`,
+        ['get', '-u', '-v', 'github.com/golang/dep/cmd/dep'],
+        [`Could not install ${chalk.red('dep')}`]
       )
     }
 
     // run `dep init`
-    if (this.dep) {
-      await cmd(
-        'dep',
-        `Configuring ${chalk.yellow('dep')}`,
-        ['init'],
-        [`Could not initialize ${chalk.red('dep')}`]
-      )
-    }
+    await cmd(
+      'dep',
+      `Configuring ${chalk.yellow('dep')}`,
+      ['init'],
+      [`Could not initialize ${chalk.red('dep')}`]
+    )
   }
 
   // writing our files
