@@ -7,7 +7,11 @@ vars:
 tasks:
   default:
     cmds:
-      - task: run
+      <% if (type === 'APP') { %> - task: run <% } %>
+      <% if (type === 'LIBRARY') { %> - task: test <% } %>
+      <% if (type === 'LIBRARY') { %> - task: cov <% } %>
+      <% if (type === 'LIBRARY') { %> - task: vet <% } %>
+      <% if (type === 'LIBRARY') { %> - task: lint <% } %>
 
   run:
     desc: Run the glorious app.
@@ -25,11 +29,11 @@ tasks:
     desc: Install all dependencies.
     cmds:
       - echo "Installing Dependencies ..."
-      - go get -u github.com/tcnksm/ghr
-      - go get -u github.com/mitchellh/gox
       - go get -u github.com/golang/dep/cmd/dep
       - go get -u github.com/alecthomas/gometalinter
       - go get -u github.com/kisielk/errcheck
+      <% if (type === 'APP') { %> - go get -u github.com/tcnksm/ghr <% } %>
+      <% if (type === 'APP') { %> - go get -u github.com/mitchellh/gox <% } %>
 
   test:
     desc: Run all the go tests.
@@ -58,6 +62,7 @@ tasks:
       - task: test
       - task: lint
 
+  <% if (type === 'APP') { %>
   build:
     desc: Run all the go tests.
     sources:
@@ -69,13 +74,17 @@ tasks:
       - mkdir -p bin
       - gox -output {{printf "bin/{{.Dir}}_{{.OS}}_{{.Arch}}"}} -os="linux" -os="darwin" -arch="386" -arch="amd64" ./
       - go build -i -o bin/{{.Dir}}
+  <% } %>
 
+  <% if (type === 'APP') { %>
   docker:
     desc: Build docker.
     deps: [release]
     cmds:
       - docker build --build-arg BIN={{.Dir}} -t {{.Dir}}:latest .
+  <% } %>
 
+  <% if (type === 'APP') { %>
   release:
     desc: Release the glorious app.
     deps: [clean, test, lint, cov]
@@ -83,3 +92,4 @@ tasks:
       - bin/*.{{exeExt}}
     cmds:
       - task: build
+  <% } %>

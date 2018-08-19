@@ -35,15 +35,15 @@ class GolangCiGenerator extends Generator {
   }
 
   async writing() {
-    console.log(ci)
-
-    // Templates[this.ci].forEach(tpl => {
-    //   this.fs.copyTpl(
-    //     this.templatePath(tpl.from),
-    //     this.destinationPath(tpl.to),
-    //     this
-    //   )
-    // })
+    this.ci.forEach(ci => {
+      Templates[this.ci].forEach(tpl => {
+        this.fs.copyTpl(
+          this.templatePath(tpl.from),
+          this.destinationPath(tpl.to),
+          this
+        )
+      })
+    })
   }
 
   end() {

@@ -12,9 +12,8 @@ export async function run(cmd, task, args = [], err = []) {
   try {
     result = await spawnAsync(cmd, args)
   } catch (e) {
-    console.log(e, result)
     s.fail(err)
-    this.env.error(e)
+    this.env.error(e.stderr)
   }
 
   s.succeed(`${task}`)
