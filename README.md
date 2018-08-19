@@ -7,13 +7,18 @@
 
 > We are very sorry Gophers, but other names for the generator where taken, so we choose `go-lang`. But we have `gocreate` as an alias.
 
+## Featured
+
+- Boilerplate for apps and libraries
+- [task](https://github.com/go-task) as task runner
+- [dep](https://github.com/golang/dep) as dependency management tool
+- [VS Code](https://code.visualstudio.com/) as editor support
+- [EditorConfig](https://editorconfig.org/)
+- Boilerplate files (e.g. README, TODO)
+
 ## Getting Started
 
-> We highly recommand to use `nvm` ([NVM](https://github.com/creationix/nvm)) to manage your Node versions, and to use the most recent versions
-
-> if you have [dep](https://github.com/golang/dep) for Go package management installed, the generator provides you with an option for that to initialize
-
-First, you have to install `yo`, as to use any [Yeoman](http://yeoman.io/) Generator. 
+First, you have to install `yo`, as to use any [Yeoman](http://yeoman.io/) Generator.
 
 ```
 npm i -g generator-create-go
@@ -36,4 +41,5 @@ Have fun!
 We can highly recommend to consult the Yeoman Guide to [write your own Yeoman Generator](http://yeoman.io/authoring/). Most importantly, to use the generator locally, you have to `npm link` the generator.
 
 ## License
+
 [MIT](/LICENSE)
