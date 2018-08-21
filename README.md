@@ -14,7 +14,8 @@
 - [dep](https://github.com/golang/dep) as dependency management tool
 - [VS Code](https://code.visualstudio.com/) as editor support
 - [EditorConfig](https://editorconfig.org/)
-- Boilerplate files (e.g. README, TODO)
+- [Travis](https://travis-ci.org/)
+- Boilerplate files (e.g. `README`, `TODO`)
 
 ## Getting Started
 
