@@ -5,7 +5,7 @@
 
 # A Yeoman Golang Generator
 
-> We are very sorry Gophers, but other names for the generator where taken, so we choose `go-lang`. But we have `gocreate` as an alias.
+> We are very sorry Gophers, but other names for the generator where taken, so we choose `create-go`.
 
 ## Featured
 
@@ -32,8 +32,10 @@ mkdir $GOPATH/src/<username>/your-new_app && cd $_
 ```
 
 ```
-yo create-go
+yo create-go <your_app>
 ```
+
+> you can also omit the app name, it then refers to the current directory
 
 Have fun!
 
