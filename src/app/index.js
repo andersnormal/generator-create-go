@@ -1,11 +1,13 @@
 import yosay from 'yosay'
 import proc from 'process'
-import path from 'path'
+import { error } from '../helpers'
+import { resolve, basename } from 'path'
 import chalk from 'chalk'
 import Generator from 'yeoman-generator'
 import Choices, { App, Library } from '../sub'
 import SubGeneratorArgs from './args'
 import Templates from './templates'
+import assert from 'assert'
 
 // generator
 class GolangGenerator extends Generator {
@@ -17,7 +19,7 @@ class GolangGenerator extends Generator {
       desc: `The name of the application (e.g. 'hello-world')`,
       type: String,
       optional: true,
-      default: path.basename(proc.cwd())
+      default: basename(proc.cwd())
     })
 
     this.appName = this.options.appname
@@ -25,6 +27,18 @@ class GolangGenerator extends Generator {
 
   // we use a property, because this is executed first
   get initializing() {
+    const { GOPATH } = proc.env
+
+    try {
+      assert(GOPATH, `Upps. ${chalk.yellow('GOPATH')} is not set.`)
+      assert(
+        proc.cwd().indexOf(GOPATH) >= 0,
+        `Upps. Your are not in your ${chalk.yellow(GOPATH)}.`
+      )
+    } catch (e) {
+      error(e.message)
+    }
+
     function hello() {
       // say yo, to any new gopher
       this.log(
@@ -44,7 +58,7 @@ class GolangGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/app'))
+    this.sourceRoot(resolve(__filename, '../../../templates/app'))
   }
 
   // prompting the user for inputs

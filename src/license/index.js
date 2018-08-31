@@ -1,7 +1,7 @@
+import Choices from './licenses'
 import Generator from 'yeoman-generator'
+import { resolve } from 'path'
 import Templates from './templates'
-import path from 'path'
-import Choices, { MIT } from './licenses'
 
 // generator
 class CoreGenerator extends Generator {
@@ -12,7 +12,7 @@ class CoreGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/license'))
+    this.sourceRoot(resolve(__filename, '../../../templates/license'))
   }
 
   // prompting the user for inputs
@@ -22,7 +22,6 @@ class CoreGenerator extends Generator {
         type: 'list',
         name: 'license',
         message: `Project License`,
-        default: MIT.value,
         choices: Choices
       }
     ])

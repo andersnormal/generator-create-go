@@ -1,6 +1,6 @@
 import Generator from 'yeoman-generator'
 import Templates from './templates'
-import path from 'path'
+import { resolve } from 'path'
 import Choices from './ci'
 
 // generator
@@ -12,7 +12,7 @@ class GolangCiGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/ci'))
+    this.sourceRoot(resolve(__filename, '../../../templates/ci'))
   }
 
   // prompting the user for inputs
@@ -36,7 +36,7 @@ class GolangCiGenerator extends Generator {
 
   async writing() {
     this.ci.forEach(ci => {
-      Templates[this.ci].forEach(tpl => {
+      Templates[ci].forEach(tpl => {
         this.fs.copyTpl(
           this.templatePath(tpl.from),
           this.destinationPath(tpl.to),

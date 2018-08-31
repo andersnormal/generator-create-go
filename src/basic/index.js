@@ -1,6 +1,6 @@
 import Generator from 'yeoman-generator'
 import Templates from './templates'
-import path from 'path'
+import { resolve } from 'path'
 
 // generator
 class CoreGenerator extends Generator {
@@ -11,7 +11,7 @@ class CoreGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/basic'))
+    this.sourceRoot(resolve(__filename, '../../../templates/basic'))
   }
 
   writing() {

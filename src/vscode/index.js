@@ -1,5 +1,4 @@
-import path from 'path'
-import chalk from 'chalk'
+import { resolve } from 'path'
 import Generator from 'yeoman-generator'
 import Templates from './templates'
 
@@ -12,7 +11,7 @@ class GolangVSCodeGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/vscode'))
+    this.sourceRoot(resolve(__filename, '../../../templates/vscode'))
   }
 
   // writing our files

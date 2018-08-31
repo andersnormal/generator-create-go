@@ -1,9 +1,9 @@
-import path from 'path'
+import { resolve } from 'path'
 import chalk from 'chalk'
 import Generator from 'yeoman-generator'
-import { run } from '../helpers'
+import { run, fileExists } from '../helpers'
 import Templates from './templates'
-import { App } from '../sub'
+import { GO_DEP_MANIFEST } from '../const'
 
 // generator
 class GolangVendorGenerator extends Generator {
@@ -27,12 +27,14 @@ class GolangVendorGenerator extends Generator {
 
     this.installDep = !installDep
     this.installCobra = installCobra
+
+    return {}
   }
 
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/vendor'))
+    this.sourceRoot(resolve(__filename, '../../../templates/vendor'))
   }
 
   // prompting the user for inputs
@@ -56,6 +58,9 @@ class GolangVendorGenerator extends Generator {
   // just in case
   async configuring() {
     const cmd = run.bind(this)
+    const shouldInit = !fileExists(
+      resolve(this.destinationRoot(), GO_DEP_MANIFEST)
+    )
 
     // run `go get``
     if (this.installDep) {
@@ -67,13 +72,16 @@ class GolangVendorGenerator extends Generator {
       )
     }
 
-    // run `dep init`
-    await cmd(
-      'dep',
-      `Configuring ${chalk.yellow('dep')}`,
-      ['init'],
-      [`Could not initialize ${chalk.red('dep')}`]
-    )
+    // init go `dep`
+    if (shouldInit) {
+      // run `dep init`
+      await cmd(
+        'dep',
+        `Initializing ${chalk.yellow('dep')}`,
+        ['init'],
+        [`Could not initialize ${chalk.red('dep')}`]
+      )
+    }
   }
 
   // writing our files

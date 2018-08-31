@@ -1,10 +1,8 @@
-import yosay from 'yosay'
-import proc from 'process'
-import path from 'path'
-import chalk from 'chalk'
-import Generator from 'yeoman-generator'
-import { run } from '../helpers'
 import Templates from './templates'
+import Generator from 'yeoman-generator'
+import chalk from 'chalk'
+import { run } from '../helpers'
+import { resolve } from 'path'
 
 // generator
 class GolangGenerator extends Generator {
@@ -20,12 +18,14 @@ class GolangGenerator extends Generator {
     }).status
 
     this.installTask = !installTask
+
+    return {}
   }
 
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/task'))
+    this.sourceRoot(resolve(__filename, '../../../templates/task'))
   }
 
   // just in case

@@ -1,4 +1,4 @@
-import path from 'path'
+import { resolve } from 'path'
 import Generator from 'yeoman-generator'
 import Templates from './templates'
 
@@ -13,7 +13,7 @@ class GolangLibraryGenerator extends Generator {
   // set necessary paths
   paths() {
     // set new source path
-    this.sourceRoot(path.resolve(__filename, '../../../templates/library'))
+    this.sourceRoot(resolve(__filename, '../../../templates/library'))
   }
 
   // writing our files
