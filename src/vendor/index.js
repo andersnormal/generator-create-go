@@ -11,6 +11,7 @@ class GolangVendorGenerator extends Generator {
     super(args, options)
 
     this.appName = this.options.appname
+    this.go11modules = this.options.go11modules
   }
 
   // first priority
@@ -39,6 +40,11 @@ class GolangVendorGenerator extends Generator {
 
   // prompting the user for inputs
   async prompting() {
+    if (this.go11modules) {
+      // we use the cool new stuff
+      return (this.vendor = !!this.go11modules)
+    }
+
     const prompts = [
       {
         type: 'confirm',
@@ -63,7 +69,7 @@ class GolangVendorGenerator extends Generator {
     )
 
     // run `go get``
-    if (this.installDep) {
+    if (!this.go11modules && this.installDep) {
       await cmd(
         'go',
         `Installing ${chalk.yellow('dep')}`,
@@ -73,7 +79,7 @@ class GolangVendorGenerator extends Generator {
     }
 
     // init go `dep`
-    if (shouldInit) {
+    if (!this.go11modules && shouldInit) {
       // run `dep init`
       await cmd(
         'dep',
@@ -81,6 +87,11 @@ class GolangVendorGenerator extends Generator {
         ['init'],
         [`Could not initialize ${chalk.red('dep')}`]
       )
+    }
+
+    // it should init go modules
+    if (this.options.go11modules) {
+      await cmd('go', 'mod', 'init')
     }
   }
 

@@ -1,8 +1,10 @@
 import Templates from './templates'
 import Generator from 'yeoman-generator'
 import chalk from 'chalk'
-import { run } from '../helpers'
+import { run, error } from '../helpers'
 import { resolve } from 'path'
+import assert from 'assert'
+import proc from 'process'
 
 // generator
 class GolangGenerator extends Generator {
@@ -10,7 +12,7 @@ class GolangGenerator extends Generator {
     super(args, options)
   }
 
-  // this is the first priority
+  // we use a property, because this is executed first
   get initializing() {
     // if `task` is not available
     const installTask = this.spawnCommandSync('task', ['--help'], {
@@ -31,6 +33,20 @@ class GolangGenerator extends Generator {
   // just in case
   async configuring() {
     const cmd = run.bind(this)
+    const { GOPATH } = proc.env
+
+    try {
+      assert(
+        this.options.go11modules || GOPATH,
+        `Upps. ${chalk.yellow('GOPATH')} is not set.`
+      )
+      assert(
+        this.options.go11modules || proc.cwd().indexOf(GOPATH) >= 0,
+        `Upps. Your are not in your ${chalk.yellow(GOPATH)}.`
+      )
+    } catch (e) {
+      error(e.message)
+    }
 
     // run `go get``
     if (this.installTask) {

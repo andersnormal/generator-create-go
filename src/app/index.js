@@ -1,13 +1,11 @@
-import yosay from 'yosay'
-import proc from 'process'
-import { error } from '../helpers'
 import { resolve, basename } from 'path'
-import chalk from 'chalk'
-import Generator from 'yeoman-generator'
 import Choices, { App, Library } from '../sub'
+import Generator from 'yeoman-generator'
+import proc from 'process'
 import SubGeneratorArgs from './args'
 import Templates from './templates'
-import assert from 'assert'
+import yosay from 'yosay'
+import chalk from 'chalk'
 
 // generator
 class GolangGenerator extends Generator {
@@ -27,18 +25,6 @@ class GolangGenerator extends Generator {
 
   // we use a property, because this is executed first
   get initializing() {
-    const { GOPATH } = proc.env
-
-    try {
-      assert(GOPATH, `Upps. ${chalk.yellow('GOPATH')} is not set.`)
-      assert(
-        proc.cwd().indexOf(GOPATH) >= 0,
-        `Upps. Your are not in your ${chalk.yellow(GOPATH)}.`
-      )
-    } catch (e) {
-      error(e.message)
-    }
-
     function hello() {
       // say yo, to any new gopher
       this.log(
@@ -67,7 +53,7 @@ class GolangGenerator extends Generator {
       {
         type: 'input',
         name: 'app',
-        message: `Project Name?`,
+        message: `Project Name`,
         default: this.appName,
         store: true
       },
@@ -77,13 +63,19 @@ class GolangGenerator extends Generator {
         message: `Project Type`,
         default: App.value,
         choices: Choices
+      },
+      {
+        type: 'confirm',
+        name: 'go11modules',
+        message: 'Go11 Modules'
       }
     ])
 
-    const { app, type } = answers
+    const { app, type, go11modules } = answers
 
     this.appName = app
     this.type = type
+    this.go11modules = go11modules
   }
 
   // just in case

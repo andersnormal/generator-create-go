@@ -25,6 +25,11 @@ tasks:
       - echo "Cleaning ..."
       - rm -rf bin/ *.html *.out | exit 0;
 
+  watch:
+    desc: Watch changes in *.go files and rebuild
+    cmds:
+      - watch
+
   install:
     desc: Install all dependencies.
     cmds:
@@ -32,8 +37,8 @@ tasks:
       - go get -u github.com/golang/dep/cmd/dep
       - go get -u github.com/alecthomas/gometalinter
       - go get -u github.com/kisielk/errcheck
-      <% if (type === 'APP') { %> - go get -u github.com/tcnksm/ghr <% } %>
-      <% if (type === 'APP') { %> - go get -u github.com/mitchellh/gox <% } %>
+      <% if (type === 'APP') { %>- go get -u github.com/tcnksm/ghr <% } %>
+      <% if (type === 'APP') { %>- go get -u github.com/mitchellh/gox <% } %>
 
   test:
     desc: Run all the go tests.
