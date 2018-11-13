@@ -16,6 +16,7 @@
 - [EditorConfig](https://editorconfig.org/)
 - [Travis](https://travis-ci.org/)
 - Boilerplate files (e.g. `README`, `TODO`)
+- ... and opinionated
 
 ## Getting Started
 
