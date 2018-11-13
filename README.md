@@ -43,6 +43,8 @@ Have fun!
 
 We can highly recommend to consult the Yeoman Guide to [write your own Yeoman Generator](http://yeoman.io/authoring/). Most importantly, to use the generator locally, you have to `npm link` the generator.
 
+See https://github.com/andersnormal/generator-create-go/tree/master/src for all available sub-generators.
+
 ## License
 
 [MIT](/LICENSE)
