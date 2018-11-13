@@ -11,7 +11,7 @@
 
 - Boilerplate for apps and libraries
 - [task](https://github.com/go-task) as task runner
-- [dep](https://github.com/golang/dep) as dependency management tool (also Go Modules support)
+- [dep](https://github.com/golang/dep) as dependency management tool (also [Go 1.11 Modules](https://github.com/golang/go/wiki/Modules) are supported)
 - [VS Code](https://code.visualstudio.com/) as editor support
 - [EditorConfig](https://editorconfig.org/)
 - [Travis](https://travis-ci.org/)
